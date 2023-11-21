@@ -30,5 +30,5 @@ def get_gas_price():
 
 
 get_gas_price()
-#check_balance_names(ADDRESS_DICT)
-#transaction_count(ADDRESS_DICT)
+check_balance_names(ADDRESS_DICT)
+transaction_count(ADDRESS_DICT)
