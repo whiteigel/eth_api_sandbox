@@ -30,6 +30,7 @@ def get_gas_price():
     gas_price_wei = w3.eth.gas_price
     gas_gwei = round(w3.from_wei(gas_price_wei, 'gwei'),1)
     print(f'Current gas is {gas_gwei} gwei')
+
 def write_output(input):
     with open(output_file, "a") as output:
         output.write(input+'\n')
