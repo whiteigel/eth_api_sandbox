@@ -3,6 +3,7 @@ from address_dict import *
 from ids import *
 
 INFURA_ID = INFURA_ID
+output_file = 'output.csv'
 
 w3 = Web3(Web3.HTTPProvider(f'https://mainnet.infura.io/v3/{INFURA_ID}'))
 
@@ -17,10 +18,12 @@ def check_balance_names(address_dict):
 def transaction_count(address_dict):
     for account, address in address_dict.items():
         transaction_number = w3.eth.get_transaction_count(address)
-        if transaction_number == 0:
-            print(f'There is no transaction on Etherium for {account}')
+        if transaction_number != 0:
+            output = (f'{account};{transaction_number}')
+            write_output(output)
+            print(f'You have {transaction_number} transactions on Etherium for {account}\n')
         else:
-            print(f'You have {transaction_number} transactions on Etherium for {account}')
+            print(f'There is no transaction on Etherium for {account}')
 
 # This function checks current gas price and shows it in gwei
 def get_gas_price():
@@ -28,7 +31,10 @@ def get_gas_price():
     gas_gwei = round(w3.from_wei(gas_price_wei, 'gwei'),1)
     print(f'Current gas is {gas_gwei} gwei')
 
+def write_output(input):
+    with open(output_file, "a") as output:
+        output.write(input+'\n')
 
-get_gas_price()
-check_balance_names(ADDRESS_DICT)
+#get_gas_price()
+#check_balance_names(ADDRESS_DICT)
 transaction_count(ADDRESS_DICT)
